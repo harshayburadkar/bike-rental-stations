@@ -2,6 +2,30 @@ import React from 'react'
 import {getAllStations, getStationStatus} from "../services/stationService"
 import {Checkbox} from "@blueprintjs/core"
 
+//components may be broken down in separate files
+const StationRow = ({item}) => {
+    return (
+      <tr key={item.station_id}>
+        <td>{item.name}</td>
+        <td>{item.capacity}</td>
+        <td>{item.num_bikes_available}</td>
+      </tr>
+   )
+}
+
+const StationTableHead = () => {
+    return (
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>Capacity</th>
+        <th>Available</th>
+      </tr>
+      </thead>
+    )
+}
+
+
 class ShowStationsPage extends React.Component {
   constructor(props) {
     super(props);
@@ -65,6 +89,7 @@ class ShowStationsPage extends React.Component {
   render() {
     const { stations, nameSort, availabilitySort } = this.state;
     let sortedStations = [...stations];
+    //memoization can be considered if perf issues are encountered
     if(nameSort) {
       sortedStations = this.sortByName(sortedStations);
     }
@@ -81,21 +106,11 @@ class ShowStationsPage extends React.Component {
         </div>
 
         <table className="bp3-html-table">
-          <thead>
-          <tr>
-            <th>Name</th>
-            <th>Capacity</th>
-            <th>Available</th>
-          </tr>
-          </thead>
+          <StationTableHead/>
           <tbody>
           {
             sortedStations && sortedStations.map(item => (
-              <tr key={item.station_id}>
-                <td>{item.name}</td>
-                <td>{item.capacity}</td>
-                <td>{item.num_bikes_available}</td>
-              </tr>
+              <StationRow item={item} key={item.station_id}/>
             ))
           }
           </tbody>
