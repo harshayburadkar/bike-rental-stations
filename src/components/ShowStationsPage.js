@@ -5,7 +5,9 @@ class ShowStationsPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      stations: []
+      stations: [],
+      nameSort: false,
+      availabilitySort: false
     }
   }
   componentDidMount() {
@@ -34,8 +36,8 @@ class ShowStationsPage extends React.Component {
   render() {
     const stations = this.state?.stations;
     return (
-      <div>
-        Stations
+      <div className={'page-container'}>
+        <h2>Bike Stations (Toronto)</h2>
 
         <table className="bp3-html-table">
           <thead>
